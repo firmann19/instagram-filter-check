@@ -12,18 +12,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const response = await fetch(
-      `https://sprintpedia.id/page/instagram_tools?username=${username}`,
-      {
-        method: "GET",
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
-      }
-    );
+    const response = await fetch("https://sprintpedia.id/api/instagram_tools", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username }),
+    });
 
-    const html = await response.text();
-    res.status(200).send(html);
+    const data = await response.json();
+
+    res.status(200).json(data);
   } catch (error) {
     console.error("Error fetching from Sprintpedia:", error);
     res.status(500).json({ error: "Failed to fetch data from Sprintpedia" });
