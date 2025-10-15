@@ -24,14 +24,14 @@ Aplikasi ini menggabungkan **frontend React (Vite + Tailwind CSS)** dan **backen
 ```bash
 
 📦 instagram-filter-check/
-├── 📁 src/                  # React frontend
-│   ├── 📁 components/       # Komponen UI
-│   ├── 📁 pages/            # Halaman utama
-│   ├── 📁 styles/           # Konfigurasi Tailwind
-│   └── 📄 main.tsx          # Entry point React
+├── 📁 src/                  
+│   ├── 📁 components/       
+│   ├── 📁 pages/            
+│   ├── 📁 styles/           
+│   └── 📄 main.tsx          
 │
 ├── 📁 api/
-│   └── 📄 sprintpedia.ts    # Backend API (Serverless Function di Vercel)
+│   └── 📄 sprintpedia.ts    
 │
 ├── 📄 package.json
 ├── ⚙️  vite.config.ts
