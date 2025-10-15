@@ -21,6 +21,7 @@ Aplikasi ini menggabungkan **frontend React (Vite + Tailwind CSS)** dan **backen
 
 ## 🧩 Arsitektur Singkat
 
+```bash
 
 📦 instagram-filter-check/
 ├── 📁 src/                  # React frontend
@@ -36,6 +37,7 @@ Aplikasi ini menggabungkan **frontend React (Vite + Tailwind CSS)** dan **backen
 ├── ⚙️  vite.config.ts
 └── 📄 tsconfig.json
 
+```
 ---
 
 ## Alur Simulasi API Sprintpedia
