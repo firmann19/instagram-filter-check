@@ -1,73 +1,82 @@
-# React + TypeScript + Vite
+# 🪄 Instagram Filter Check
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Instagram Filter Check** adalah proyek berbasis **React + TypeScript** yang berfungsi untuk menampilkan informasi publik akun Instagram melalui **API Sprintpedia**.  
+Aplikasi ini menggabungkan **frontend React (Vite + Tailwind CSS)** dan **backend serverless (Vercel Functions)** untuk menghindari masalah CORS saat berinteraksi dengan Sprintpedia.
 
-Currently, two official plugins are available:
+🌐 **Live Demo:** [https://instagram-filter-check.vercel.app](https://instagram-filter-check.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## ⚙️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Kategori | Teknologi |
+|-----------|------------|
+| **Frontend** | [React 19](https://react.dev/), [Vite](https://vitejs.dev/), [TypeScript](https://www.typescriptlang.org/) |
+| **Styling** | [Tailwind CSS 4](https://tailwindcss.com/) |
+| **Backend / API** | [Vercel Serverless Functions](https://vercel.com/docs/functions) dengan [`@vercel/node`](https://www.npmjs.com/package/@vercel/node) |
+| **Deployment** | [Vercel](https://vercel.com/) |
+| **Linting & Quality** | ESLint + TypeScript ESLint |
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🧩 Arsitektur Singkat
+instagram-filter-check/
+├── src/ 
+│ ├── components/ 
+│ ├── pages/ 
+│ ├── styles/ 
+│ └── main.tsx
+│
+├── api/
+│ └── sprintpedia.ts 
+│
+├── package.json
+├── vite.config.ts
+└── tsconfig.json
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Alur Simulasi API Sprintpedia
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. User Input:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+   - Pengguna memasukkan username Instagram di form (contoh: nasa).
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Frontend → API Lokal
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+   - Frontend mengirim request ke:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+     POST https://instagram-filter-check.vercel.app/api/sprintpedia
+
+     dengan payload:
+
+     { "username": "nasa" }
+
+3. Serverless Function (Proxy)
+
+   - File api/sprintpedia.ts menerima request dan meneruskannya ke:
+
+     https://sprintpedia.id/api/instagram_tools
+
+   - Request dikirim menggunakan fetch dengan header:
+
+    {
+      "Content-Type": "application/json",
+      "X-Requested-With": "XMLHttpRequest"
+    }
+
+4. Sprintpedia Response
+
+   - Sprintpedia mengembalikan hasil berupa data profil publik (atau HTML error jika username tidak ditemukan).
+
+5. Response ke Frontend
+
+   - Proxy mengubah hasil ke format JSON dan mengirim kembali ke React App untuk ditampilkan.
+
+---
+
+## Cara Menjalankan Proyek
+
+1. Jalankan di Mode Development
+   npm run dev
+
+2. Deployment (Vercel)
+   https://instagram-filter-check.vercel.app
