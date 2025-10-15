@@ -1,4 +1,3 @@
-// api/sprintpedia.ts
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -8,22 +7,25 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const { username } = req.body;
 
+  if (!username) {
+    return res.status(400).json({ error: "Username is required" });
+  }
+
   try {
     const response = await fetch(
-      "https://sprintpedia.id/page/instagram_tools",
+      `https://sprintpedia.id/page/instagram_tools?username=${username}`,
       {
-        method: "POST",
+        method: "GET",
         headers: {
-          "Content-Type": "application/json",
+          "X-Requested-With": "XMLHttpRequest",
         },
-        body: JSON.stringify({ username }),
       }
     );
 
-    const data = await response.json();
-    res.status(200).json(data);
+    const html = await response.text();
+    res.status(200).send(html);
   } catch (error) {
-    console.error("Error fetching data from Sprintpedia:", error);
+    console.error("Error fetching from Sprintpedia:", error);
     res.status(500).json({ error: "Failed to fetch data from Sprintpedia" });
   }
 }
