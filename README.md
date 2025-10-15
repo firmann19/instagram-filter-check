@@ -20,19 +20,21 @@ Aplikasi ini menggabungkan **frontend React (Vite + Tailwind CSS)** dan **backen
 ---
 
 ## 🧩 Arsitektur Singkat
-instagram-filter-check/
-├── src/ 
-│ ├── components/ 
-│ ├── pages/ 
-│ ├── styles/ 
-│ └── main.tsx
+
+```bash
+📦 instagram-filter-check/
+├── 📁 src/                  # React frontend
+│   ├── 📁 components/       # Komponen UI
+│   ├── 📁 pages/            # Halaman utama
+│   ├── 📁 styles/           # Konfigurasi Tailwind
+│   └── 📄 main.tsx          # Entry point React
 │
-├── api/
-│ └── sprintpedia.ts 
+├── 📁 api/
+│   └── 📄 sprintpedia.ts    # Backend API (Serverless Function di Vercel)
 │
-├── package.json
-├── vite.config.ts
-└── tsconfig.json
+├── 📄 package.json
+├── ⚙️  vite.config.ts
+└── 📄 tsconfig.json
 
 ## Alur Simulasi API Sprintpedia
 
